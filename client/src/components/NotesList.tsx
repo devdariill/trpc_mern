@@ -9,11 +9,11 @@ function NotesList() {
   if (isError) return <div>Error: {error.message}</div>
   console.log(data)
   return (
-    <>
+    <div className="flex-col-reverse">
       {data.map((note: any) => (
         <NoteCard key={note._id} note={note} />
       ))}
-    </>
+    </div>
   )
 }
 export default NotesList

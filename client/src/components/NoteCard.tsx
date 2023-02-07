@@ -12,47 +12,55 @@ function NoteCard({ note }: Props) {
   const toggleUpdate = trpc.note.updateNote.useMutation()
   const utils = trpc.useContext()
   return (
-    <div>
-      <h1>{note.title}</h1>
-      <p>{note.description}</p>
-      <button
-        onClick={() => {
-          deleteNote.mutate(note._id, {
-            onSuccess: (data) => {
-              if (data) utils.note.get.invalidate()
-            },
-            onError: (e) => {
-              console.log(
+    <div className="bg-zinc-800 p-2 mb-2 flex justify-between">
+      <div>
+        <h1 className="font-bold text-xl">{note.title}</h1>
+        <p>{note.description}</p>
+      </div>
+      <div className="flex gap-x-5">
+        <button
+          onClick={() => {
+            deleteNote.mutate(note._id, {
+              onSuccess: (data) => {
+                if (data) utils.note.get.invalidate()
+              },
+              onError: (e) => {
                 console.log(
-                  '🚀 ~ file: NoteForm.tsx:13 ~ handleSubmit ~ mutate',
-                  e.message + '-------'
+                  console.log(
+                    '🚀 ~ file: NoteForm.tsx:13 ~ handleSubmit ~ mutate',
+                    e.message + '-------'
+                  )
                 )
-              )
-            },
-          })
-        }}
-      >
-        Delete
-      </button>
-      <button
-        onClick={async () => {
-          await toggleUpdate.mutate(note._id, {
-            onSuccess: (data) => {
-              if (data) utils.note.get.invalidate()
-            },
-            onError: (e) => {
-              console.log(
+              },
+            })
+          }}
+          className="bg-red-500 px-3 py-2 rounded-md ml-auto text-white"
+        >
+          Delete
+        </button>
+        <button
+          onClick={() => {
+            toggleUpdate.mutate(note._id, {
+              onSuccess: (data) => {
+                if (data) utils.note.get.invalidate()
+              },
+              onError: (e) => {
                 console.log(
-                  '🚀 ~ file: NoteForm.tsx:13 ~ handleSubmit ~ mutate',
-                  e.message + '-------'
+                  console.log(
+                    '🚀 ~ file: NoteForm.tsx:13 ~ handleSubmit ~ mutate',
+                    e.message + '-------'
+                  )
                 )
-              )
-            },
-          })
-        }}
-      >
-        {note.done ? 'Undone' : 'Done'}
-      </button>
+              },
+            })
+          }}
+          className={`${
+            note.done ? 'bg-zinc-500' : 'bg-green-500'
+          } px-3 py-2 rounded-md ml-auto text-white`}
+        >
+          {note.done ? 'Undone' : 'Done'}
+        </button>
+      </div>
     </div>
   )
 }

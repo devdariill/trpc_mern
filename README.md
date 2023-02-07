@@ -15,3 +15,27 @@ pnpm add --save @typegoose/typegoose # add typegoose itself
 "strictPropertyInitialization": false 
 // config typegoose works
 "experimentalDecorators": true 
+
+tailwind
+pnpm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+
+tailwind.config.cjs
+
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+
+    /** @type {import('tailwindcss').Config} */
+    module.exports = {
+    content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+    theme: {
+        extend: {},
+    },
+    plugins: [],
+    }
+
+index.css
+
+    @tailwind base;
+    @tailwind components;
+    @tailwind utilities;

@@ -3,10 +3,11 @@ import { trpc } from '../utils/trpc'
 function NoteForm() {
   const utils = trpc.useContext()
   const addNote = trpc.note.create.useMutation()
-  const [note, setNote] = useState({
+  const initialState = {
     title: '',
     description: '',
-  })
+  }
+  const [note, setNote] = useState(initialState)
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     console.log(note)
@@ -14,6 +15,7 @@ function NoteForm() {
       onSuccess: () => {
         console.log('note added')
         utils.note.get.invalidate()
+        setNote(initialState)
       },
       onError: (e) => {
         console.log(
@@ -32,8 +34,10 @@ function NoteForm() {
     //   setnote({ ...note, [name]: value })
   }
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="bg-zinc-900 rounded-md p-6" onSubmit={handleSubmit}>
       <input
+        value={note.title}
+        className="bg-neutral-800 px-3 py-2 w-full block rounded-md mb-3"
         type="text"
         placeholder="title"
         name="title"
@@ -41,11 +45,15 @@ function NoteForm() {
         onChange={handleChange}
       />
       <textarea
+        value={note.description}
+        className="bg-neutral-800 px-3 py-2 w-full block rounded-md mb-3"
         placeholder="description"
         name="description"
         onChange={handleChange}
       ></textarea>
-      <button>Save</button>
+      <button className="bg-zinc-500 px-3 py-2 rounded-md  block text-white w-full">
+        Save
+      </button>
     </form>
   )
 }
