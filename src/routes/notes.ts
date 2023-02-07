@@ -10,4 +10,8 @@ const getNotes = publicProcedure.query(() => {
   ]
   // return []
 })
-export const notesRouter = router({ get: getNotes })
+const createNote = publicProcedure.mutation((props) => {
+  console.log(props)
+  return 'received'
+})
+export const notesRouter = router({ get: getNotes, create: createNote })
