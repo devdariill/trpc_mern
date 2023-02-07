@@ -4,10 +4,12 @@ interface Props {
     _id: string
     title: string
     description: string
+    done: boolean
   }
 }
 function NoteCard({ note }: Props) {
-  const delteNote = trpc.note.delete.useMutation()
+  const deleteNote = trpc.note.delete.useMutation()
+  const toggleUpdate = trpc.note.updateNote.useMutation()
   const utils = trpc.useContext()
   return (
     <div>
@@ -15,7 +17,7 @@ function NoteCard({ note }: Props) {
       <p>{note.description}</p>
       <button
         onClick={() => {
-          delteNote.mutate(note._id, {
+          deleteNote.mutate(note._id, {
             onSuccess: (data) => {
               if (data) utils.note.get.invalidate()
             },
@@ -32,7 +34,25 @@ function NoteCard({ note }: Props) {
       >
         Delete
       </button>
-      <button>Done</button>
+      <button
+        onClick={async () => {
+          await toggleUpdate.mutate(note._id, {
+            onSuccess: (data) => {
+              if (data) utils.note.get.invalidate()
+            },
+            onError: (e) => {
+              console.log(
+                console.log(
+                  '🚀 ~ file: NoteForm.tsx:13 ~ handleSubmit ~ mutate',
+                  e.message + '-------'
+                )
+              )
+            },
+          })
+        }}
+      >
+        {note.done ? 'Undone' : 'Done'}
+      </button>
     </div>
   )
 }
