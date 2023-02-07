@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { trpc } from '../utils/trpc'
 function NoteForm() {
+  const utils = trpc.useContext()
   const addNote = trpc.note.create.useMutation()
   const [note, setNote] = useState({
     title: '',
@@ -11,7 +12,8 @@ function NoteForm() {
     console.log(note)
     addNote.mutate(note, {
       onSuccess: () => {
-        console.log('success')
+        console.log('note added')
+        utils.note.get.invalidate()
       },
       onError: (e) => {
         console.log(
