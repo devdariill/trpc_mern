@@ -8,3 +8,5 @@ express @trpc/server morgan
     @types/express -D
 ***************client***************
 pnpm add @trpc/client  @trpc/server @trpc/react-query @tanstack/react-query
+###
+pnpm add --save @typegoose/typegoose # add typegoose itself
