@@ -2,10 +2,9 @@ import morgan from 'morgan'
 import cors from 'cors'
 import express from 'express'
 import * as trpcExpress from '@trpc/server/adapters/express'
-import * as trpc from '@trpc/server'
 import { router, createContext } from './trpc'
 import { notesRouter } from './routes/notes'
-
+import path from 'path'
 const app = express()
 app.use(cors())
 app.use(morgan('dev'))
@@ -23,6 +22,9 @@ app.use(
     // createContext: () => {}// sirve para compartir router user se usa esto
   })
 )
+
+app.use(express.static(path.join(__dirname, '../client/dist')))
+
 export type AppRouter = typeof appRouter
 
 export default app
