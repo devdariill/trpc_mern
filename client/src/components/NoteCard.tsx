@@ -9,6 +9,8 @@ function NoteCard({ note }: Props) {
     <div>
       <h1>{note.title}</h1>
       <p>{note.description}</p>
+      <button>Delete</button>
+      <button>Done</button>
     </div>
   )
 }
