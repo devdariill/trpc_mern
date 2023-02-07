@@ -33,4 +33,15 @@ const createNote = publicProcedure
     const saveNote = await newNote.save()
     return saveNote
   })
-export const notesRouter = router({ get: getNotes, create: createNote })
+const delteNote = publicProcedure.input(z.string()).mutation(async (props) => {
+  const { input } = props
+  const noteFound = await Note.findByIdAndDelete(input)
+  // throw new Error('Error custom')
+  if (!noteFound) throw new Error('Note not found')
+  return true
+})
+export const notesRouter = router({
+  get: getNotes,
+  create: createNote,
+  delete: delteNote,
+})
