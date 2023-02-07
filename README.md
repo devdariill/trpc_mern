@@ -20,6 +20,10 @@ tailwind
 pnpm install -D tailwindcss postcss autoprefixer
 npx tailwindcss init -p
 
+tsconfig
+    {},
+    "exclude": ["./client"]
+    
 tailwind.config.cjs
 
     "./index.html",
@@ -39,3 +43,4 @@ index.css
     @tailwind base;
     @tailwind components;
     @tailwind utilities;
+
