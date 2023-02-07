@@ -8,7 +8,7 @@
     "build:back": "tsc",
     "build:front": "npm run build --prefix client",
     "start": "node dist/index.js",
-    "build": "npm run build:back && npm run build:front"
+    "build": "npm run build:back && npm i --prefix client && npm run build:front"
   },
   "keywords": [],
   "author": "",
