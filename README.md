@@ -6,3 +6,5 @@ package.json
     "dev": "ts-node-dev --respawn -transpileOnly src/index.ts"
 express @trpc/server morgan
     @types/express -D
+***************client***************
+pnpm add @trpc/client  @trpc/server @trpc/react-query @tanstack/react-query
